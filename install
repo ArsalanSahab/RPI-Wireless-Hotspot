@@ -17,11 +17,11 @@ fi
 clear
 echo "Updating package lists"
 
-apt-get -y -qq update
+apt -y -qq update
 
 echo "Installing dependencies"
 
-apt-get -y -qq install hostapd udhcpd
+apt -y -qq install hostapd udhcpd
 
 
 ####################################################################
@@ -169,6 +169,10 @@ fi
 touch /var/lib/misc/udhcpd.leases
 
 echo "Initialising access point"
+echo "Unmasking"
+sudo systemctl unmask hostapd
+echo "Enabelling"
+sudo systemctl enable hostapd
 service hostapd start
 update-rc.d hostapd enable
 
